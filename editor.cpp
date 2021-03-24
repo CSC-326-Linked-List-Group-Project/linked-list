@@ -2,6 +2,7 @@
 #include "ListInterface.h"
 #include "Position.h"
 #include <iostream>
+#include <string>
 #include <fstream>
 void placeCursorAt(Position coordinate); //Not a method of Editor but a package with Editor
 using namespace std;
@@ -17,28 +18,41 @@ Editor::Editor(string _fileName) {
 
 	if (inFile.fail()) {
 		throw invalid_argument("File cannot be located.");
-		exit(1);
 	}
 	while (!inFile.eof()) {
 		getline(inFile, readLine);
 		lines.insert(lineCounter, readLine);
 		lineCounter++;
 	}
+
+	displayLines();
 }
 
 void Editor::displayLines() {
-
-}
-
-void Editor::run() {
-	displayLines();
-
-	bool run{ true };
-
-	while (run) {
-		
+	for (int i = 1; i < lines.getLength(); i++) {
+		cout << lines.getEntry(i) << endl;
 	}
 }
+
+//void Editor::run() {
+//	displayLines();
+//
+//	bool run{ true };
+//
+//	while (run) {
+//		int argc;
+//		const char* argv[2];
+//		for(int i = 1; i <= argc; i++)
+//		if (argc == 1) {
+//			if (... == 'q') {
+//				/*quits program*/
+//			}
+//			else if (... == 'w') {
+//				/*save file*/
+//			}
+//		}
+//	}
+//}
 
 void placeCursorAt(Position coordinate) {
 	COORD coord;
