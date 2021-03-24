@@ -1,3 +1,4 @@
+//Position.h file
 //CSC 326
 //VI EDITOR PHASE 1
 //GROUP MEMBERS: DEANNA MANDARINO, VICTORIA JACZYNSKI, SIMON CHRISTIAN, BILL ZHOU
@@ -16,13 +17,13 @@ private:
 	int x;
 	int y;
 public:
-	Position();
-	Position(int, int);
+	Position(); //default constructor
+	Position(int, int); //constructor that takes 2 parameters
 	void setX(int);
 	void setY(int);
 	int getX() const;
 	int getY() const;
-	void display() const;
+	void display() const; 
 };
 #include "Position.cpp"
 #endif
