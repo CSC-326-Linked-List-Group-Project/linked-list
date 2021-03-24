@@ -1,3 +1,4 @@
+//Position.cpp file
 //CSC 326
 //VI EDITOR PHASE 1
 //GROUP MEMBERS: DEANNA MANDARINO, VICTORIA JACZYNSKI, SIMON CHRISTIAN, BILL ZHOU
@@ -13,9 +14,13 @@ using namespace std;
 
 Position::Position() {
 	x = 0; y = 0;
+	//Default Constructor
+	//Sets x and y to 0
 }
 Position::Position(int mX, int mY) {
 	x = mX; y = mY;
+	//Constructor that takes 2 parameters
+	//Sets x and y equal to the parameters
 }
 void Position::setX(int mX) {
 	x = mX;
@@ -31,4 +36,5 @@ int Position::getY()const {
 }
 void Position::display() const {
 	cout << "(" << x << ", " << y << ")" << endl;
+	//Prints out the coordinate
 }
