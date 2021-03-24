@@ -1,3 +1,4 @@
+//Editor.cpp file
 //CSC 326
 //VI EDITOR PHASE 1
 //GROUP MEMBERS: DEANNA MANDARINO, VICTORIA JACZYNSKI, SIMON CHRISTIAN, BILL ZHOU
@@ -15,7 +16,7 @@
 #include <string>
 #include <fstream>
 #include <conio.h>
-void placeCursorAt(Position coordinate);
+void placeCursorAt(Position coordinate); //function prototype
 using namespace std;
 
 Editor::Editor() {
