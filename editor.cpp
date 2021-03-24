@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <conio.h>
 void placeCursorAt(Position coordinate); //Not a method of Editor but a package with Editor
 using namespace std;
 
@@ -17,15 +18,13 @@ Editor::Editor(string _fileName) {
 	int lineCounter = 1;
 
 	if (inFile.fail()) {
-		throw invalid_argument("File cannot be located.");
+		cout << "File cannot be found.";
 	}
 	while (!inFile.eof()) {
 		getline(inFile, readLine);
 		lines.insert(lineCounter, readLine);
 		lineCounter++;
 	}
-
-	displayLines();
 }
 
 void Editor::displayLines() {
@@ -34,25 +33,34 @@ void Editor::displayLines() {
 	}
 }
 
-//void Editor::run() {
-//	displayLines();
-//
-//	bool run{ true };
-//
-//	while (run) {
-//		int argc;
-//		const char* argv[2];
-//		for(int i = 1; i <= argc; i++)
-//		if (argc == 1) {
-//			if (... == 'q') {
-//				/*quits program*/
-//			}
-//			else if (... == 'w') {
-//				/*save file*/
-//			}
-//		}
-//	}
-//}
+void Editor::run() {
+	/*Initialize cursor position (0,0)*/
+	Position cursor;
+	displayLines();
+	placeCursorAt(cursor);
+
+	char entry;
+	/*System function which gets the character*/
+	entry = _getch();
+
+	if (entry == ':') {
+		cursor.setX(0);
+		cursor.setY(lines.getLength()+5);
+		placeCursorAt(cursor);
+		cout << entry;
+		entry = _getch();
+		
+		entry = _getche();
+		if (entry == 'q') {
+			inFile.close();
+			cout << "\nsuccess" << endl;
+		}
+		else if (entry == 'w') {
+			/*Does something*/
+		}
+	}
+
+}
 
 void placeCursorAt(Position coordinate) {
 	COORD coord;
