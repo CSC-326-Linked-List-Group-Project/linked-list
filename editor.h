@@ -3,6 +3,7 @@
 #include <string>
 #ifndef EDITOR_H
 #define EDITOR_H
+using namespace std;
 
 class Editor {
 private:
@@ -15,7 +16,7 @@ public:
 	Editor(string _fileName);
 	/*Displays Lines*/
 	void displayLines();
-	void run();
+	//void run();
 };
 #include "Editor.cpp"
 #endif
