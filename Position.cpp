@@ -8,6 +8,12 @@ Position::Position()
      mY = 0;
 }
 
+Position::Position(int x, int y)
+{
+     mX = x;
+     mY = y;
+}
+
 void Position::setX(int x)
 {
      mX = x;
