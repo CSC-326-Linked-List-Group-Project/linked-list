@@ -63,10 +63,10 @@ void Editor::run() {
 		cursor.setY(lines.getLength()+5);
 		placeCursorAt(cursor);
 		cout << entry;
-		entry = _getch();
+		entry = _getche();
+
 		/*q quits the Editor and closes the file*/
 		if (entry == 'q') {
-			entry = _getche();
 			inFile.close();
 			cout << "\nClosing the file was successful." << endl;
 		}
