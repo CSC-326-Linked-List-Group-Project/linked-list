@@ -8,20 +8,21 @@
 // Allow for the following commands:  :q   :w
 
 
-#ifndef Position_H
-#define Position_H
+#ifndef POSITION_H
+#define POSITION_H
 
 class Position {
-public:
-     Position();
-     Position(int, int);
-     void setX(int);
-     void setY(int);
-     int getX() const;
-     int getY() const;
-     void display() const;
 private:
-     int mX;
-     int mY;
+	int x;
+	int y;
+public:
+	Position();
+	Position(int, int);
+	void setX(int);
+	void setY(int);
+	int getX() const;
+	int getY() const;
+	void display() const;
 };
+#include "Position.cpp"
 #endif
