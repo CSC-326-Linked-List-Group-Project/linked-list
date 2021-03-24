@@ -1,3 +1,4 @@
+//Editor.h file
 //CSC 326
 //VI EDITOR PHASE 1
 //GROUP MEMBERS: DEANNA MANDARINO, VICTORIA JACZYNSKI, SIMON CHRISTIAN, BILL ZHOU
@@ -18,7 +19,7 @@ using namespace std;
 class Editor {
 private:
 	ifstream inFile;
-	LinkedList<string> lines;
+	LinkedList<string> lines; //list of strings
 	string fileName;
 public:
 	/*Default Constructor*/
