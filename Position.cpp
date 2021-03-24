@@ -7,43 +7,28 @@
 // Code a constructor for the Editor class with one parameter for the file name - read it in and add to the linked list 
 // Allow for the following commands:  :q   :w
 
-#include<iostream>
 #include "Position.h"
+#include <iostream>
 using namespace std;
 
-Position::Position()
-{
-     mX = 0;
-     mY = 0;
+Position::Position() {
+	x = 0; y = 0;
 }
-
-Position::Position(int x, int y)
-{
-     mX = x;
-     mY = y;
+Position::Position(int mX, int mY) {
+	x = mX; y = mY;
 }
-
-void Position::setX(int x)
-{
-     mX = x;
+void Position::setX(int mX) {
+	x = mX;
 }
-
-void Position::setY(int y)
-{
-     mY = y;
+void Position::setY(int mY) {
+	y = mY;
 }
-
-int Position::getX() const
-{
-     return mX;
+int Position::getX()const {
+	return x;
 }
-
-int Position::getY() const
-{
-     return mY;
+int Position::getY()const {
+	return y;
 }
-
-void Position::display() const
-{
-     cout << "(" << mX << "," << mY << ")" << endl;
+void Position::display() const {
+	cout << "(" << x << ", " << y << ")" << endl;
 }
