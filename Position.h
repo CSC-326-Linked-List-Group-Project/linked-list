@@ -17,13 +17,13 @@ private:
 	int x;
 	int y;
 public:
-	Position(); //default constructor
-	Position(int, int); //constructor that takes 2 parameters
+	Position();
+	Position(int, int);
 	void setX(int);
 	void setY(int);
 	int getX() const;
 	int getY() const;
-	void display() const; 
+	void display() const;
 };
 #include "Position.cpp"
 #endif
