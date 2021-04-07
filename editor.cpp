@@ -41,6 +41,35 @@ Editor::Editor(string _fileName) {
 	}
 }
 
+int binarySearch(const int areaCodesarray[], int first, int last, int areaCode) //function definition
+{
+	int index;
+	if (first > last)
+		index = -1;
+	else
+	{
+		int mid = first + (last - first) / 2;
+		if (areaCode == areaCodesarray[mid]
+			)
+			index = mid;
+		else if (areaCode < areaCodesarray[mid]
+			)
+			index = binarySearch(areaCodesarray, first, mid - 1, areaCode);
+		else
+			index = binarySearch(areaCodesarray, mid + 1, last, areaCode);
+	}
+	return index;
+	/*We send this function the array with the area codes, first (which is set equal to 0 because
+	an array starts at 0), last (which is equal to 311 because there are 312 area codes in the .txt
+	file but you subtract 1 because an array starts at 0 not 1), and the area code that the user
+	inputted*/
+	/*This function returns the index (which is equal to the mid) because it will return the element
+	number from the array that matches the inputted area code. It basically just shows that this inputted
+	area code is in our program*/
+	/*The purpose of this function is to search through our area codes array to find an exact match to
+	the inputted area code*/
+}
+
 void Editor::displayLines() {
 	/*Clear screen to display text file*/
 	system("CLS");
