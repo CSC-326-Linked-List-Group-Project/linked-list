@@ -49,11 +49,9 @@ int binarySearch(const int areaCodesarray[], int first, int last, int areaCode) 
 	else
 	{
 		int mid = first + (last - first) / 2;
-		if (areaCode == areaCodesarray[mid]
-			)
+		if (areaCode == areaCodesarray[mid])
 			index = mid;
-		else if (areaCode < areaCodesarray[mid]
-			)
+		else if (areaCode < areaCodesarray[mid])
 			index = binarySearch(areaCodesarray, first, mid - 1, areaCode);
 		else
 			index = binarySearch(areaCodesarray, mid + 1, last, areaCode);
