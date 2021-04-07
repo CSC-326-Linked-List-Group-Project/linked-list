@@ -41,6 +41,15 @@ Editor::Editor(string _fileName) {
 	}
 }
 
+/*This is not a member function but a package for Editor*/
+/*Initializes the cursor*/
+void placeCursorAt(Position coordinate) {
+	COORD coord;
+	coord.X = coordinate.getX();
+	coord.Y = coordinate.getY();
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
+}
+
 int binarySearch(const int areaCodesarray[], int first, int last, int areaCode) //function definition
 {
 	int index;
@@ -68,12 +77,56 @@ int binarySearch(const int areaCodesarray[], int first, int last, int areaCode) 
 	the inputted area code*/
 }
 
-void Editor::displayLines() {
-	/*Clear screen to display text file*/
-	system("CLS");
-	for (int i = 1; i < lines.getLength(); i++) {
-		cout << lines.getEntry(i) << endl;
+void colorText(int value) {
+
+	COORD coord;
+
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	FlushConsoleInputBuffer(hConsole);
+
+	SetConsoleTextAttribute(hConsole, value + 240);
+
+}
+
+void Editor::displayLines()
+{
+	int position;
+	string nextLine, nextWord, line;
+
+
+	// goes through each line in the linked list 
+	for (position = 1; position <= lines.getLength(); position++)
+	{
+		nextLine = lines.getEntry(position);
+
+		int i = 0;
+		while (i < nextLine.length()) {
+			string word;
+			// isolate a word at a time (can contain underscores)
+			if (isalpha(nextLine[i])) {
+				while (isalpha(nextLine[i]) || nextLine[i] == '_') {
+					word += nextLine[i];
+					i++;
+				}
+				if (binarySearch(keyWords, 0, numKeywords - 1, word) != -1)  //found
+					colorText(1);
+				else
+					colorText(0);
+				cout << word;
+			}
+
+			else {
+				colorText(0);
+				cout << nextLine[i];
+				i++;
+			}
+
+		}
+
+		cout << endl;
 	}
+	placeCursorAt(uPos);
 }
 
 void Editor::run() {
@@ -103,12 +156,4 @@ void Editor::run() {
 		}
 	}
 
-}
-/*This is not a member function but a package for Editor*/
-/*Initializes the cursor*/
-void placeCursorAt(Position coordinate) {
-	COORD coord;
-	coord.X = coordinate.getX();
-	coord.Y = coordinate.getY();
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
 }
