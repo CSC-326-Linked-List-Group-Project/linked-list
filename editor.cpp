@@ -39,18 +39,18 @@ Editor::Editor(string _fileName) {
 		lines.insert(lineCounter, readLine);
 		lineCounter++;
 	}
-}
+	
+	ifstream keywordsList;
+	keywordsList.open("keywords.txt");
+	int arraySize = 0;
+	keyWords = new string[numKeywords];
+	while (!keywordsList.eof()) {
+		getline(keywordsList, keyWords[arraySize]);
+		arraySize++;
+	}
 
-/*This is not a member function but a package for Editor*/
-/*Initializes the cursor*/
-void placeCursorAt(Position coordinate) {
-	COORD coord;
-	coord.X = coordinate.getX();
-	coord.Y = coordinate.getY();
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
 }
-
-int binarySearch(const int areaCodesarray[], int first, int last, int areaCode) //function definition
+int binarySearch(string* keyWords, int first, int last, string word) //function definition
 {
 	int index;
 	if (first > last)
@@ -66,29 +66,7 @@ int binarySearch(const int areaCodesarray[], int first, int last, int areaCode) 
 			index = binarySearch(areaCodesarray, mid + 1, last, areaCode);
 	}
 	return index;
-	/*We send this function the array with the area codes, first (which is set equal to 0 because
-	an array starts at 0), last (which is equal to 311 because there are 312 area codes in the .txt
-	file but you subtract 1 because an array starts at 0 not 1), and the area code that the user
-	inputted*/
-	/*This function returns the index (which is equal to the mid) because it will return the element
-	number from the array that matches the inputted area code. It basically just shows that this inputted
-	area code is in our program*/
-	/*The purpose of this function is to search through our area codes array to find an exact match to
-	the inputted area code*/
 }
-
-void colorText(int value) {
-
-	COORD coord;
-
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	FlushConsoleInputBuffer(hConsole);
-
-	SetConsoleTextAttribute(hConsole, value + 240);
-
-}
-
 void Editor::displayLines()
 {
 	int position;
@@ -127,33 +105,83 @@ void Editor::displayLines()
 		cout << endl;
 	}
 	placeCursorAt(uPos);
-}
+} // end displayLines
 
 void Editor::run() {
 	/*Initialize cursor position (0,0)*/
 	Position cursor;
 	displayLines();
 	placeCursorAt(cursor);
-
 	char entry;
+	bool operation = true;
 	/*System function which gets the character*/
 	entry = _getch();
 
-	if (entry == ':') {
-		cursor.setX(0);
-		cursor.setY(lines.getLength()+5);
-		placeCursorAt(cursor);
-		cout << entry;
-		entry = _getche();
+	while (operation == true) {
+			/*Utilizing cursor line to determine current line*/
+			int currentLineNumber = cursor.getX() + 1;
+			/*Gets current line where cursor is*/
+			string currentLine = lines.getEntry(currentLineNumber);
+			
 
-		/*q quits the Editor and closes the file*/
-		if (entry == 'q') {
-			inFile.close();
-			cout << "\nClosing the file was successful." << endl;
-		}
-		else if (entry == 'w') {
-			/*Does something*/
-		}
+			switch (entry) {
+			case ':':
+				cursor.setX(0);
+				cursor.setY(lines.getLength() + 5);
+				placeCursorAt(cursor);
+				cout << entry;
+				entry = _getche();
+				/*Quits the file*/
+				if (entry == 'q') {
+					inFile.close();
+					cout << " " << fileName << " closing the file was successful." << endl;
+					operation = false;
+					exit(1);
+				}
+				/*Overwrite on the file*/
+				else if (entry == 'w') {
+					ofstream newFile;
+					newFile.open(fileName);
+					for (int copy = 1; copy <= lines.getLength(); copy++)
+						newFile << lines.getEntry(copy) << endl;
+					newFile.close();
+					cout << " " << fileName << " file successfully overwritten." << endl;
+				}
+				break;
+			case 'x':
+				placeCursorAt(cursor);
+				currentLine.erase(cursor.getX(), 1);
+				lines.replace(currentLineNumber, currentLine);
+				displayLines();
+				break;
+			case 'd':
+				entry = _getch();
+				/*Command dd will erase the whole line*/
+				if (entry == 'd') {
+					lines.remove(currentLineNumber);
+				}
+				displayLines();
+				break;
+			}
+			cursor.setX(0);
+			cursor.setY(0);
+			placeCursorAt(cursor);
+			entry = _getch();
 	}
+}
+/*This is not a member function but a package for Editor*/
+/*Initializes the cursor*/
+void placeCursorAt(Position coordinate) {
+	COORD coord;
+	coord.X = coordinate.getX();
+	coord.Y = coordinate.getY();
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
 
+/*colorText function*/
+void colorText(int value) {
+	COORD coord;
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	FlushConsoleInputBuffer(hConsole);
+	SetConsoleTextAttribute(hConsole, value + 240);
 }
