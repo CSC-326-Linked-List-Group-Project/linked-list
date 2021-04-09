@@ -17,10 +17,6 @@
 using namespace std;
 
 class Editor {
-private:
-	ifstream inFile;
-	LinkedList<string> lines; //list of strings
-	string fileName;
 public:
 	/*Default Constructor*/
 	Editor();
@@ -30,6 +26,12 @@ public:
 	void displayLines();
 	/*Runs the program*/
 	void run();
+private:
+	fstream inFile;
+	LinkedList<string> lines;
+	string fileName;
+	string* keyWords;
+	const int numKeywords = 60;
 };
 #include "Editor.cpp"
 #endif
