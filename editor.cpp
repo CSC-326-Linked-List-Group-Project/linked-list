@@ -2,7 +2,6 @@
 //CSC 326
 //VI EDITOR PHASE 1
 //GROUP MEMBERS: DEANNA MANDARINO, VICTORIA JACZYNSKI, SIMON CHRISTIAN, BILL ZHOU
-
 // Task: Write an Editor class that has an instance of our LinkedList
 // Use command line arguments - the user will specify the file (if it exists)
 // Code a constructor for the Editor class with one parameter for the file name - read it in and add to the linked list 
@@ -16,7 +15,9 @@
 #include <string>
 #include <fstream>
 #include <conio.h>
+int binarySearch(string*& keyWords, int first, int last, string word);
 void placeCursorAt(Position coordinate); //function prototype
+void colorText(int value);
 using namespace std;
 
 Editor::Editor() {
@@ -50,7 +51,14 @@ Editor::Editor(string _fileName) {
 	}
 
 }
-int binarySearch(string* keyWords, int first, int last, string word) //function definition
+//void Editor::displayLines() {
+//	/*Clear screen to display text file*/
+//	system("CLS");
+//	for (int i = 1; i < lines.getLength(); i++) {
+//		cout << lines.getEntry(i) << endl;
+//	}
+//}
+int binarySearch(string*&keyWords, int first, int last, string word) //function definition
 {
 	int index;
 	if (first > last)
@@ -58,12 +66,12 @@ int binarySearch(string* keyWords, int first, int last, string word) //function 
 	else
 	{
 		int mid = first + (last - first) / 2;
-		if (areaCode == areaCodesarray[mid])
+		if (word == keyWords[mid])
 			index = mid;
-		else if (areaCode < areaCodesarray[mid])
-			index = binarySearch(areaCodesarray, first, mid - 1, areaCode);
+		else if (word < keyWords[mid])
+			index = binarySearch(keyWords, first, mid - 1, word);
 		else
-			index = binarySearch(areaCodesarray, mid + 1, last, areaCode);
+			index = binarySearch(keyWords, mid + 1, last, word);
 	}
 	return index;
 }
@@ -71,7 +79,6 @@ void Editor::displayLines()
 {
 	int position;
 	string nextLine, nextWord, line;
-
 
 	// goes through each line in the linked list 
 	for (position = 1; position <= lines.getLength(); position++)
@@ -104,6 +111,7 @@ void Editor::displayLines()
 
 		cout << endl;
 	}
+	Position uPos;
 	placeCursorAt(uPos);
 } // end displayLines
 
