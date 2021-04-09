@@ -8,6 +8,7 @@
 // Code a constructor for the Editor class with one parameter for the file name - read it in and add to the linked list 
 // Allow for the following commands:  :q   :w
 
+#include "Position.h"
 #include "LinkedList.h"
 #include <Windows.h>
 #include <string>
@@ -32,6 +33,7 @@ private:
 	string fileName;
 	string* keyWords;
 	const int numKeywords = 60;
+	Position cursor;
 };
 #include "Editor.cpp"
 #endif
