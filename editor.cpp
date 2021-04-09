@@ -80,6 +80,8 @@ void Editor::displayLines()
 	int position;
 	string nextLine, nextWord, line;
 
+	system("CLS");
+
 	// goes through each line in the linked list 
 	for (position = 1; position <= lines.getLength(); position++)
 	{
@@ -95,24 +97,22 @@ void Editor::displayLines()
 					i++;
 				}
 				if (binarySearch(keyWords, 0, numKeywords - 1, word) != -1)  //found
-					colorText(1);
+					colorText(3);
 				else
-					colorText(0);
+					colorText(15);
 				cout << word;
 			}
 
 			else {
-				colorText(0);
+				colorText(15);
 				cout << nextLine[i];
 				i++;
 			}
 
 		}
-
 		cout << endl;
 	}
-	Position uPos;
-	placeCursorAt(uPos);
+	placeCursorAt(cursor);
 } // end displayLines
 
 void Editor::run() {
@@ -191,5 +191,5 @@ void colorText(int value) {
 	COORD coord;
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	FlushConsoleInputBuffer(hConsole);
-	SetConsoleTextAttribute(hConsole, value + 240);
+	SetConsoleTextAttribute(hConsole, value);
 }
